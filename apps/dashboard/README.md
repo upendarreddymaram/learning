@@ -1,16 +1,26 @@
 # Dashboard
 
-Next.js + React + TypeScript + Tailwind CSS frontend.
+Next.js 15 + React + TypeScript + Tailwind CSS.
 
-## Phase 1
+## Implemented (Phase 1)
 
-- Task list and detail views
-- Organization / repository management UI
-- QA approval workflow (Phase 5+)
+| Route | Description |
+|-------|-------------|
+| `/` | Redirects to `/tasks` |
+| `/tasks` | Task list table |
+| `/tasks/[id]` | Task detail + event timeline |
 
-## Setup
+## Run
 
 ```bash
-# Phase 1 — initialize when ready
-# npx create-next-app@latest . --typescript --tailwind --app
+# From repo root (API must be running on :3000)
+npm run dev:dashboard
 ```
+
+Open http://localhost:3001/tasks
+
+## Phase 2+
+
+- Live task status updates
+- QA approval workflow (Phase 5)
+- Observability views (Phase 10)

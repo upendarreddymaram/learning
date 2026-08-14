@@ -1,21 +1,31 @@
 # API (Webhook Gateway + Dashboard APIs)
 
-Node.js + TypeScript backend.
+Node.js + TypeScript + Express + Drizzle ORM + PostgreSQL + Redis queue.
 
-## Phase 1
+## Implemented
 
-- `POST /webhooks/clickup` — authenticate, validate, idempotency, persist event
-- Dashboard REST APIs for tasks, repositories, organizations
-- PostgreSQL persistence layer
+### Phase 1
+- Task REST APIs, health check, dev seed
 
-## Phase 2
+### Phase 2
+- Async webhook processing via BullMQ queue
+- Redis idempotency for duplicate webhooks
+- Dev webhook simulator: `POST /webhooks/clickup/dev/simulate`
 
-- Redis-backed job queue
-- Task state machine transitions
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/health` | GET | Liveness + DB + Redis |
+| `/webhooks/clickup` | POST | Verify, dedupe, enqueue (202) |
+| `/webhooks/clickup/dev/simulate` | POST | Dev-only webhook simulator |
+| `/api/tasks` | GET | List tasks |
+| `/api/tasks/:id` | GET | Task detail + events |
+| `/api/tasks/dev/seed` | POST | Dev-only seed |
 
-## Setup
+## Run
 
 ```bash
-# Phase 1 — initialize when ready
-# npm init -y && npm install express typescript ...
+docker compose up -d
+npm run db:migrate -w @orchestrator/api
+npm run dev:api
+npm run dev:orchestrator   # required for webhook processing
 ```

@@ -1,0 +1,28 @@
+{
+  "name": "@orchestrator/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "db:migrate": "tsx src/migrate.ts"
+  },
+  "dependencies": {
+    "@orchestrator/clients": "*",
+    "@orchestrator/config": "*",
+    "@orchestrator/types": "*",
+    "drizzle-orm": "^0.38.3",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

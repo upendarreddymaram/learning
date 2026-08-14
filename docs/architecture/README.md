@@ -41,10 +41,54 @@ Core entities: `organizations`, `users`, `repositories`, `tasks`, `acceptance_cr
 
 ## Diagrams
 
-Add architecture diagrams here as the project evolves:
+### System Context Diagram (Phase 0)
 
-- [ ] System context diagram
-- [ ] Container diagram
+```mermaid
+flowchart TB
+  subgraph external [External Systems]
+    ClickUp[ClickUp]
+    GitHub[GitHub]
+    LLM[LLM Providers]
+  end
+
+  subgraph platform [AI Dev Orchestrator]
+    API[Webhook Gateway / API]
+    Dashboard[Dashboard]
+    Orchestrator[Orchestrator]
+    AIPlanner[AI Planner]
+    Agents[Agent Gateway]
+    Workers[Repo / CI Workers]
+    DB[(PostgreSQL)]
+    Redis[(Redis)]
+    Kafka[Kafka - Phase 7]
+  end
+
+  Engineer[Engineering Team] --> Dashboard
+  ClickUp -->|webhook| API
+  API --> DB
+  API --> Orchestrator
+  Orchestrator --> Redis
+  Orchestrator --> Kafka
+  Orchestrator --> AIPlanner
+  AIPlanner --> LLM
+  Orchestrator --> Agents
+  Agents --> Workers
+  Workers --> GitHub
+  Dashboard --> API
+  Engineer -->|QA approve| Dashboard
+```
+
+### Phase 1 Data Flow (Implemented)
+
+```
+ClickUp webhook → POST /webhooks/clickup → verify signature
+  → fetch task from ClickUp API → upsert tasks table → insert events row
+  → Dashboard polls GET /api/tasks → displays task list + event timeline
+```
+
+### Remaining diagrams (future phases)
+
+- [ ] Container diagram (detailed)
 - [ ] Sequence diagram: ClickUp → PR
 - [ ] Sequence diagram: CI failure → RCA
 - [ ] Deployment diagram (AWS / K8s)

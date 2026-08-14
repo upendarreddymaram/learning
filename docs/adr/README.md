@@ -24,4 +24,5 @@ What becomes easier or more difficult because of this change?
 
 | ADR | Title | Status |
 |-----|-------|--------|
-| — | — | — |
+| [001](./001-monorepo-structure.md) | Monorepo Structure with npm Workspaces | Accepted |
+| [002](./002-redis-idempotency.md) | Redis Idempotency and Async Job Queue | Accepted |

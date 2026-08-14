@@ -99,8 +99,23 @@ learning/
 # Start infrastructure services
 docker compose up -d
 
-# See individual app/service READMEs for setup
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+
+# Run database migrations
+npm run db:generate -w @orchestrator/api
+npm run db:migrate -w @orchestrator/api
+
+# Start API (terminal 1), Orchestrator (terminal 2), Dashboard (terminal 3)
+npm run dev:api
+npm run dev:orchestrator
+npm run dev:dashboard
 ```
+
+Open http://localhost:3001/tasks. See [Phase 1 Learning Guide](docs/learning/PHASE-1-LEARNING.md) for full setup, interview prep, and dev seed commands.
 
 ## Build Roadmap (30 Weeks)
 
@@ -138,6 +153,8 @@ docker compose up -d
 ## Documentation
 
 - [Architecture](docs/architecture/README.md)
+- [Phase 1 Learning Guide](docs/learning/PHASE-1-LEARNING.md)
+- [Phase 2 Learning Guide](docs/learning/PHASE-2-LEARNING.md) — **Redis, idempotency, state machine**
 - [Interview Card Template](docs/interview/interview-card-template.md)
 - [ADR Index](docs/adr/README.md)
 - [FDE Notes](docs/fde/README.md)

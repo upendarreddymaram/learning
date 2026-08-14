@@ -1,0 +1,22 @@
+{
+  "name": "ai-dev-orchestrator",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:api": "npm run dev -w @orchestrator/api",
+    "dev:dashboard": "npm run dev -w @orchestrator/dashboard",
+    "dev:orchestrator": "npm run dev -w @orchestrator/orchestrator",
+    "build": "npm run build --workspaces --if-present",
+    "db:generate": "npm run db:generate -w @orchestrator/api",
+    "db:migrate": "npm run db:migrate -w @orchestrator/api",
+    "db:studio": "npm run db:studio -w @orchestrator/api"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
